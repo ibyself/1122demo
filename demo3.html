@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>动画函数</title>
+		<style>
+			.box{
+				width:100px;
+				height: 100px;
+				background: skyblue;
+				position:absolute;
+				left:0;
+				top:100px;
+			}
+		</style>
+	</head>
+	<body>
+		<button>距离左边400px</button>
+		<button>距离左边800px</button>
+		<div class="box" id='box'></div>
+		<script type="text/javascript">
+			var btns=document.getElementsByTagName('button');
+			var box=document.getElementById('box');
+			btns[0].onclick=function(){
+				animation(box,400);
+			}
+			btns[1].onclick=function(){
+				animation(box,800);
+			}
+			function animation(obj,target){
+				clearInterval(obj.timer);
+				obj.timer=setInterval(function(){
+					var step=8;
+					var current=obj.offsetLeft;
+					step=current>=target?-step:step;
+					if(Math.abs(current-target)>=Math.abs(step)){
+						current+=step;
+						obj.style.left=current+"px";
+					}else{
+						obj.style.left=target+'px';
+						clearInterval(obj.timer);
+					}
+				},30);
+			}
+		</script>
+	</body>
+</html>

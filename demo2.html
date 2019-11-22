@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>导航跟随</title>
+		<style type="text/css">
+			body{height:2000px;}
+			.header{height:300px;background: salmon;}
+			.nav{width:100%;height:80px;background: skyblue;}
+			.pof{position:fixed;left:0;top:0;}
+		</style>
+	</head>
+	<body>
+		<div class="header" id="header"></div>
+		<div class="nav" id="nav"></div>
+		<script>
+			var header=document.getElementById('header');
+			var nav=document.getElementById('nav');
+			window.onscroll=function(){
+				if(getScroll().top>=header.offsetHeight){
+					nav.className='nav pof';
+				}else{
+					nav.className='nav';
+				}
+			}
+			function getScroll(){
+				return {
+					top:window.scrollTop || document.documentElement.scrollTop || document.body.scrollTop,
+					left:window.scrollLeft || document.documentElement.scrollLeft || document.body.scrollLeft
+				}
+			}
+		</script>
+	</body>
+</html>

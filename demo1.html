@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>动态电影列表(事件委派)</title>
+		<style>
+			*{margin: 0;padding: 0;}
+		.box{
+			width:320px;
+			height:170px;
+			margin:100px auto 0;
+		}
+		.box .addBtn{
+			width:100px;height:30px;
+		}
+		.box table{border:1px solid #ccc;border-spacing: 0;border-collapse:collapse;width:300px;}
+		.box table td,.box table th{border:1px solid #ccc;text-align: center;padding:5px 0;}
+		.box table th{background-color: #09c;}
+		.yinyi{width:100%;height:100%;position: absolute;left:0;top:0;background-color: rgba(0,0,0,.5);display: none;}
+		.addMovie{width:430px;height:250px;position: absolute;left:50%;margin-left: -215px;top:50%;margin-top: -125px;background-color: #FFF;display: none;}
+		.addMovie h3{text-align: center;height:35px;background: #eee;line-height: 35px;}
+		.addMovie div{margin: 20px 0 0 20px;}
+		.addMovie div input{width:290px;height:30px;border-radius: 3px;border:1px solid #ccc;padding:0 5px;}
+		.addMovie .comBtn{display: block;margin:15px auto 0;width:100px;height:30px;}
+		.addMovie .close{position:absolute;right:10px;top:5px;font-size:20px;cursor: pointer;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<button class="addBtn" id="addBtn">添加数据</button>
+			<table>
+				<thead>
+					<tr>
+						<th>电影名称</th>
+						<th>领衔主演</th>
+						<th>已看完</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr>
+						<td>老师好</td>
+						<td>于谦</td>
+						<td><a href="##">删除</a></td>
+					</tr>
+					<tr>
+						<td>飞驰人生</td>
+						<td>沈腾</td>
+						<td><a href="##">删除</a></td>
+					</tr>
+					<tr>
+						<td>流浪地球</td>
+						<td>吴京</td>
+						<td><a href="##">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="yinyi" id="yinyi"></div>
+		<div class="addMovie" id="addMovie">
+			<h3>添加数据</h3>
+			<div>
+				<label for="txt1">电影名称：</label>
+				<input type="text" name="" id="txt1" value="" placeholder="请输入电影名称" />
+			</div>
+			<div>
+				<label for="txt2">领衔主演：</label>
+				<input type="text" name="" id="txt2" value="周星驰" />
+			</div>
+			<button class="comBtn" id="comBtn">完成</button>
+			<span id="close" class="close">X</span>
+		</div>
+		<script type="text/javascript">
+			var tbody = document.getElementById('tbody');
+			var yinyi = document.getElementById("yinyi");
+			var addMovie = document.getElementById('addMovie');
+			var addBtn = document.getElementById('addBtn');
+			var comBtn = document.getElementById('comBtn');
+			var close = document.getElementById('close');
+			var txt1 = document.getElementById('txt1');
+			var txt2 = document.getElementById('txt2');
+			//给a绑定事件
+			tbody.onclick=function(e){
+				if(e.target.nodeName=='A'){
+					this.removeChild(e.target.parentElement.parentElement);
+				}
+			}
+			//点击添加电影
+			addBtn.onclick = function() {
+				yinyi.style.display = 'block';
+				addMovie.style.display = 'block';
+			}
+			//点击完成
+			comBtn.onclick = function() {
+				var str1 = txt1.value.trim();
+				var str2 = txt2.value.trim();
+				if(str1 &&str2){
+					yinyi.style.display = 'none';
+					addMovie.style.display = 'none';
+					var tr = document.createElement('tr');
+					tbody.appendChild(tr);
+					for (var i = 0; i < 3; i++) {
+						var td = document.createElement('td');
+						tr.appendChild(td);
+						if (i == 0) {
+							td.innerText = str1;
+						} else if (i == 1) {
+							td.innerText = str2;
+						}else{
+							var a=document.createElement('a');
+							a.href="#";
+							a.innerText="删除";
+							
+							td.appendChild(a);
+						}
+					}
+					txt1.value='';
+					txt2.value='周星驰';
+				}else{
+					alert('电影名称和领衔主演不能为空！')
+				}
+			}
+			//点击关闭
+			close.onclick=function(){
+				yinyi.style.display = 'none';
+				addMovie.style.display = 'none';
+			}
+		</script>
+	</body>
+</html>
